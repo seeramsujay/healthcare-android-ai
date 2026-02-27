@@ -1,350 +1,230 @@
-# 🧬 Unified Medical AI – Vibe Coding Roadmap (Cancer-Optimized)
-
-## Vision
-
-Build a modular, safety-first AI health platform optimized for:
-
-* Cancer risk screening assistance
-* Oncology report interpretation
-* Imaging-based early signal detection
-* Longitudinal patient monitoring
-* Doctor referral & escalation
-
-This system assists — never replaces — clinicians.
+# 🧠 Unified Medical AI – Software & AI Roadmap
 
 ---
 
-# 🧭 Development Strategy – Vibe Coding Mode
+## 🧠 PHASE 1 – Architecture & Foundation (Weeks 1–4)
 
-Vibe coding = short build loops, rapid prototypes, vertical slices, continuous validation.
+### 1️⃣ Define System Architecture
 
-Instead of long research phases, every track ships:
+You are building:
 
-* Week-level deliverables
-* Demo-ready modules
-* Testable APIs
-* Measurable metrics
+* React Frontend
+* Backend API
+* AI Microservices
+* Secure Database
+* Doctor Integration Layer
 
-Parallel Tracks:
+### Recommended Stack
 
-A – AI Core (NLP + Vision)
-B – Oncology Data & Validation
-C – App + Backend Engineering
-D – Device & Imaging Integration
-E – Clinical Safety Layer
-F – Compliance & Clinical Strategy
-
-Each track must produce deployable artifacts independently.
-
----
-
-# 🟢 PHASE 1 (0–4 Months) – Early Cancer Screening MVP
-
-Goal: Ship a Cancer Risk Assistant MVP
+* **Frontend:** React + TypeScript
+* **Backend:** FastAPI (Python)
+* **AI Framework:** PyTorch
+* **Database:** PostgreSQL
+* **Storage:** Encrypted S3 bucket
+* **Containerization:** Docker
 
 ---
 
-## 🔵 Track A – AI Intelligence Core (Cancer-Focused)
+### 2️⃣ Design Microservices
 
-### Sprint 1–2: Oncology Symptom NLP
+Split AI into isolated services:
+
+* `symptom-service`
+* `report-parser-service`
+* `vision-ai-service`
+* `risk-engine-service`
+* `vitals-service`
+
+Keep services independent and loosely coupled.
+
+---
+
+# 🚀 PHASE 2 – Build Core AI Engine (Month 2–3)
+
+## 🔹 Step 1: Symptom Transformer
 
 Build:
 
-* Cancer symptom classifier (multi-label)
-* Red-flag detector (weight loss, bleeding, lump, etc.)
-* Risk tiering: Low / Moderate / Urgent
+* Structured symptom input schema
+* Transformer-based classification model
+
+Output:
+
+* Risk level
+* OTC category
+* Escalation flag
+
+Use:
+
+* Fine-tuned medical LLM
+* Rule-based red-flag override layer
+
+---
+
+## 🔹 Step 2: Lab Report NLP
+
+Pipeline:
+
+```
+PDF → OCR → Structured values → Normal range comparison → Explanation generator
+```
 
 Tech:
 
-* Python
-* PyTorch
-* HuggingFace Transformers
-* scikit-learn baseline
-
-Output:
-
-* /ai/nlp/symptom_model
-* REST inference endpoint
-
-Metrics:
-
-* Recall prioritized over precision
-* False negative rate < threshold target
+* Tesseract / AWS Textract
+* Regex + validation rules
+* LLM summarization layer
 
 ---
 
-### Sprint 3–4: Oncology Report Interpreter
+## 🔹 Step 3: Risk Scoring Engine
 
-Parse:
+Create multi-factor scoring system:
 
-* Biopsy reports
-* Pathology summaries
-* Tumor marker labs
+```
+Risk Score =
+  (Symptom Severity Weight)
++ (Abnormal Lab Weight)
++ (Vitals Deviation Weight)
+```
 
-Tasks:
+Return:
 
-* Extract tumor type
-* Extract staging terms (TNM)
-* Highlight abnormal markers
+* Low
+* Moderate
+* High
+* Emergency
 
-Output:
-
-* Structured JSON report output
-* Confidence scoring per extraction
+This becomes the core intelligence layer.
 
 ---
 
-### Sprint 5–6: Imaging Baseline (Binary Classifier)
+# 🖼 PHASE 3 – Vision Transformer (Month 4–6)
 
-Start with:
+⚠️ Start with **one scan type only**.
 
-* Lung cancer (Chest X-ray)
-* Breast cancer (Mammogram open dataset)
+### Step 1
 
-Model:
+* Pretrained CNN (ResNet / EfficientNet)
 
-* Pretrained CNN (ResNet/EfficientNet)
-* Grad-CAM visualization
+### Step 2
+
+* Add Grad-CAM for explainability
+
+### Step 3
+
+* Convert to inference microservice
+
+Input:
+
+* DICOM / Image
 
 Output:
 
-* Probability score
+* Abnormality label
+* Confidence %
 * Heatmap overlay
 
----
+Later:
 
-## 🟣 Track B – Oncology Data Layer
-
-### Data Sources
-
-* Public cancer imaging datasets
-* Annotated pathology samples
-* WHO staging documentation
-
-Tasks:
-
-* Build standardized schema
-* Define tumor taxonomy
-* Define label confidence metadata
-
-Output:
-
-* /data/schema_v1.json
-* Dataset versioning system
-
-Critical:
-
-* Track demographic metadata for bias auditing
+* Upgrade to 3D CNN for CT scans
 
 ---
 
-## 🟡 Track C – App Engineering (Vertical Slice First)
+# 📊 PHASE 4 – Time-Series AI (Month 6–8)
 
-### Sprint 1–2
+Build anomaly detection for:
 
-Build minimal cancer assistant app:
+* Resting Heart Rate
+* SpO₂ drops
+* Sleep deviation
 
-Features:
+Use:
 
-* User authentication
-* Symptom input form
-* Upload medical report
-* Upload imaging file
+* LSTM or Temporal Transformer
+* Baseline personalization per user
 
-Stack:
-
-* Flutter (fast cross-platform iteration)
-* FastAPI backend
-
-Deliverable:
-
-* End-to-end working vertical slice
+Goal:
+Detect pattern change, not single readings.
 
 ---
 
-## 🟠 Track D – Device & Imaging Integration
+# 🛡 PHASE 5 – AI Safety Layer (CRITICAL)
 
-Phase 1 Scope:
+Before launch:
 
-* Manual vitals entry
-* Camera-based pulse detection
-* PDF parsing for lab reports
-
-Optional Exploration:
-
-* External dermoscopy camera for skin cancer
-* Bluetooth pulse oximeter integration
-
-Deliverable:
-
-* Real-time vitals panel
-* Imaging upload validation pipeline
+* Add hard-coded emergency triggers
+* Add hallucination blocker
+* Log every AI output
+* Add explainability metadata
+* Never allow raw model output directly to user
 
 ---
 
-## 🔴 Track E – Oncology Safety Engine
+# ☁️ PHASE 6 – Production Deployment
 
-Cancer-specific guardrails:
+* Dockerize all services
+* Deploy to Kubernetes
 
-* Immediate escalation triggers:
+Add:
 
-  * Persistent bleeding
-  * Rapid unexplained weight loss
-  * Suspicious mass
-  * Abnormal imaging probability > threshold
-
-* Mandatory disclaimer enforcement
-
-* Referral suggestion logic
-
-Architecture:
-
-AI Output → Safety Filter → User Message Generator
-
-Output:
-
-* Risk override engine
-* Escalation protocol module
+* Rate limiting
+* Encryption
+* Monitoring (Prometheus + Grafana)
+* Logging (ELK stack)
 
 ---
 
-## ⚫ Track F – Regulatory & Clinical Planning
+# 🔬 PHASE 7 – Clinical Validation Mode
 
-Parallel Research:
+Add:
 
-* Clinical Decision Support (CDS) classification
-* Oncology AI approval pathways
-* Data protection frameworks
-
-Deliverable:
-
-* Regulatory pathway document
-* Clinical validation roadmap draft
+* "Shadow mode" (AI runs silently beside doctor)
+* Accuracy tracking dashboard
+* Continuous retraining pipeline
 
 ---
 
-# 🟢 PHASE 2 (4–18 Months) – Clinical-Grade Oncology AI
+# 🧠 AI Design Principles
 
-## AI Expansion
-
-* Multi-cancer classification
-* Tumor subtype prediction
-* Survival risk estimation models
-* Longitudinal progression tracking
-
-## Clinical Validation
-
-* Partner with oncology centers
-* Blind evaluation studies
-* False negative audit emphasis
-
-## Infrastructure Upgrade
-
-* Encrypted cloud storage
-* Differential privacy research
-* Audit logs for every AI decision
-
-## Tele-oncology Integration
-
-* Oncologist booking
-* Video consultation
-* Case summary export for doctors
+* No single mega-model
+* Modular AI services
+* Rule-based override > ML confidence
+* Always attach confidence scores
+* Human-in-the-loop architecture
 
 ---
 
-# 🟢 PHASE 3 (2–4 Years) – Medical-Grade Oncology Platform
+# 🏗 Suggested Folder Structure
 
-Requirements:
-
-* Prospective clinical trials
-* Multi-center validation
-* Demographic bias reduction
-* Published peer-reviewed results
-
-Regulatory:
-
-* Submit as CDS oncology support system
-* Obtain formal medical device clearance if required
-
----
-
-# 🏗 Architecture Overview
-
-User App
-↓
-API Gateway
-↓
--
-
-| AI Core                        |
-| - Symptom NLP                  |
-| - Oncology Report Parser       |
-| - Vision Models                |
-| - Survival Risk Engine         |
-----------------------------------
-
-↓
-Safety Engine
-↓
-Referral System
-↓
-Encrypted Cloud Storage
+```
+/frontend
+/backend
+/ai-services
+   /symptom_model
+   /vision_model
+   /risk_engine
+   /vitals_model
+/shared-schemas
+/infrastructure
+```
 
 ---
 
-# 📊 Core Metrics to Track (Cancer-Focused)
+# 📅 Realistic Software Timeline
 
-* False Negative Rate (critical)
-* Recall for high-risk symptoms
-* Sensitivity for imaging models
-* Escalation accuracy
-* Bias across age/gender groups
-
----
-
-# 👥 Recommended Team Structure
-
-* NLP Engineer (Medical Text)
-* Vision AI Engineer (Medical Imaging)
-* Oncology Medical Advisor
-* Backend Engineer
-* Mobile Engineer
-* Data Engineer
-* Compliance Officer
+* **Months 1–3** → Full AI backend MVP
+* **Months 4–6** → Vision AI v1
+* **Months 6–9** → Time-series engine
+* **Months 9–12** → Clinical validation mode
 
 ---
 
-# 💰 Monetization (Ethical Oncology Focus)
+## 🚀 Next Possible Deep Dives
 
-* Premium early screening insights
-* Oncology report explanation subscription
-* Hospital SaaS analytics dashboard
-* Tele-oncology referral revenue share
+* 🧬 Exact transformer architecture design
+* 🧠 Prompt engineering strategy for medical LLM
+* ⚙️ Detailed API contract structure
+* 🧪 Testing + benchmarking framework
 
----
-
-# ⚠ Critical Non-Negotiables
-
-* Never provide definitive diagnosis.
-* Always escalate uncertainty.
-* Log every AI decision.
-* Enable model auditability.
-* Continuous monitoring for drift.
-
----
-
-# 🧠 Reality
-
-Cancer AI is high-stakes.
-
-Optimization priorities:
-
-1. Minimize false negatives.
-2. Bias control.
-3. Transparent probability outputs.
-4. Clinical validation before scale.
-5. Safety > speed.
-
-This is not an app.
-This is a regulated medical system in progress.
-
+Choose a direction to go deeper.
